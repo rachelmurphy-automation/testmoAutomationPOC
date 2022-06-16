@@ -26,17 +26,46 @@ jobs:
       - node/install-packages:
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
+      # Install Testmo CLI tool
+      - run: npm install --no-save @testmo/testmo-cli
+
       - run:
-          name: Run tests
-          command: npm run test-1 && npm run test-2
+          command: |
+            npx testmo automation:resources:add-field --name git --type string \
+            --value ${CIRCLE_SHA1:0:7} --resources resources.json
+            npx testmo automation:resources:add-link --name build \
+            --url $CIRCLE_BUILD_URL --resources resources.json
+      - run:
+          command: |
+            npx testmo automation:run:submit \
+              --instance $TESTMO_URL \
+              --project-id 1 \
+              --name "Mocha test run" \
+              --source "sample tests" \
+              --resources resources.json \
+              --results results/*.xml \
+              -- npm run test-1 && npm run test-2
+          #name: Run tests
+          #command: npm run test-1 && npm run test-2
+      - store_artifacts:
+          path: results
+          destination: test_results
+      - store_test_results:
+          path: results
 
 workflows:
   # Below is the definition of your workflow.
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
   # CircleCI will run this workflow on every commit.
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  sample:
-    jobs:
+  #sample:
+    sample:
+      jobs:
       - build-and-test
+      #- test:
+          #requires:
+            #- build
+          #context:
+            #- testmo
       # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
       # - node/test
