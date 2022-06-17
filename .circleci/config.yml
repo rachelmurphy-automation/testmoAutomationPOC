@@ -53,11 +53,11 @@ jobs:
             npx testmo automation:run:submit \
               --instance $TESTMO_URL \
               --project-id 3 \
-              --name "Mocha test run" \
+              --name "Mocha test run via CircleCI" \
               --source "js-and-api-tests" \
               --resources resources.json \
               --results results/*.xml \
-              -- npm run mocha-junit # Note space after --
+              -- npm run test-1 && npm run test-2 # Note space after --
 
       # Store test artifacts and results
       - store_artifacts:
