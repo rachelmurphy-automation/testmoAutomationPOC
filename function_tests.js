@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 chai.use(chaiAlmost());
 
-describe('Home Page Front End', function () {
+describe('Set of simple tests', function () {
 
   // Exercise 1:
   // Convert Date format from M/D/YYYY to YYYYMMDD
@@ -60,7 +60,7 @@ describe('Home Page Front End', function () {
   // Exercise 6
   // Reverse a given string
   it("reverse a string", function () {
-    expect(functions.reverseString("learning to like javascript")).to.equal("tpircsavaj ekil ot gninrael");
+    expect(functions.reverseString("Reverse a given string")).to.equal("gnirts nevig a esreveR");
   });
 
   // Exercise 7
@@ -74,7 +74,7 @@ describe('Home Page Front End', function () {
   // Exercise 8
   //Write a JavaScript program to sort words in Ascending order alphabetically.
   it("sort words in asc alphabetically", function () {
-    expect(functions.sortWordsAsc("Charlie Fernando is a Goldie who loves to play outside and run")).to.equal("Charlie Fernando Goldie a and is loves outside play run to who");
+    expect(functions.sortWordsAsc("Charlie Murphy is a Goldie who loves to play outside and run")).to.equal("Charlie Goldie Murphy a and is loves outside play run to who");
   });
 
   // Exercise 9
